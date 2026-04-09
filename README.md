@@ -1,6 +1,6 @@
 # center-backend
 
-用户管理系统后端，基于 Spring Boot + MyBatis-Plus 实现，提供用户注册、登录、注销、查询、删除等基础能力，并集成 Knife4j 接口文档。
+用户管理系统后端，基于 Spring Boot + MyBatis-Plus 实现，提供用户注册、登录、注销、查询、删除等业务实现，并集成 Knife4j 接口文档。
 
 ## 1. 技术栈
 
@@ -41,7 +41,7 @@ center-backend
 ### 4.1 克隆并进入项目
 
 ```powershell
-git clone <https://github.com/wobushi041/center-backend.git>
+git clone https://github.com/wobushi041/center-backend.git
 cd center-backend
 ```
 
@@ -53,8 +53,8 @@ cd center-backend
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/center-backend
-    username: 
-    password:
+    username:your_username
+    password:your_password
 ```
 
 请按本地环境修改数据库连接信息，并提前创建数据库（如：`center-backend`）。

@@ -21,7 +21,6 @@ class CenterBackendApplicationTests {
 
         Assertions.assertNotNull(user, "用户不存在，请先手动插入测试数据");
         Assertions.assertNotNull(user.getUserRole(), "role 没查出来，请检查数据库字段、XML 映射或实体字段");
-
         System.out.println("id = " + user.getId());
         System.out.println("role = " + user.getUserRole());
     }

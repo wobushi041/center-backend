@@ -36,10 +36,10 @@ class UserServiceImplTest {
     @DisplayName("userRegister 参数校验失败")
     void userRegister_shouldThrowWhenParamsInvalid() {
         assertThrows(BusinessException.class, () -> userService.userRegister("", "12345678", "12345678"));
-        assertThrows(BusinessException.class, () -> userService.userRegister("yu", "12345678", "12345678"));
-        assertThrows(BusinessException.class, () -> userService.userRegister("yupi", "123456", "123456"));
-        assertThrows(BusinessException.class, () -> userService.userRegister("yu pi", "12345678", "12345678"));
-        assertThrows(BusinessException.class, () -> userService.userRegister("yupi", "12345678", "12345679"));
+        assertThrows(BusinessException.class, () -> userService.userRegister("041", "12345678", "12345678"));
+        assertThrows(BusinessException.class, () -> userService.userRegister("00041", "123456", "123456"));
+        assertThrows(BusinessException.class, () -> userService.userRegister("000401", "12345678", "12345678"));
+        assertThrows(BusinessException.class, () -> userService.userRegister("41", "12345678", "12345679"));
     }
 
     @Test
@@ -47,7 +47,7 @@ class UserServiceImplTest {
     void userRegister_shouldThrowWhenAccountExists() {
         when(userMapper.selectCount(any())).thenReturn(1L);
 
-        assertThrows(BusinessException.class, () -> userService.userRegister("dogYupi", "12345678", "12345678"));
+        assertThrows(BusinessException.class, () -> userService.userRegister("wobushi041", "12345678", "12345678"));
     }
 
 

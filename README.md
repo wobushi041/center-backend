@@ -1,6 +1,6 @@
 # center-backend
 
-用户中心后端服务，基于 Spring Boot + MyBatis-Plus 实现，提供用户注册、登录、注销、查询、删除等基础能力，并集成 Knife4j 接口文档。
+用户管理系统后端，基于 Spring Boot + MyBatis-Plus 实现，提供用户注册、登录、注销、查询、删除等基础能力，并集成 Knife4j 接口文档。
 
 ## 1. 技术栈
 

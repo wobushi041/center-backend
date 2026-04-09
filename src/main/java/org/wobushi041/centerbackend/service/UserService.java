@@ -1,4 +1,4 @@
-package service;
+package org.wobushi041.centerbackend.service;
 
 
 import org.wobushi041.centerbackend.model.enity.User;
@@ -21,7 +21,7 @@ public interface UserService extends IService<User> {
      * @param userAccount   用户账号
      * @param userPassword  用户密码
      * @param checkPassword 是否校验密码
-     * @return
+     * @return 用户id
      */
     Long userRegister(String userAccount, String userPassword, String checkPassword);
 
@@ -31,7 +31,7 @@ public interface UserService extends IService<User> {
      * @param userAccount
      * @param userPassword
      * @param request
-     * @return
+     * @return safetyUser
      */
     User userLogin(String userAccount, String userPassword, HttpServletRequest request);
 
@@ -39,7 +39,7 @@ public interface UserService extends IService<User> {
     /**
      *
      * @param request
-     * @return
+     * @return 1
      */
     int userlogout(HttpServletRequest request);
 
@@ -47,14 +47,14 @@ public interface UserService extends IService<User> {
     /**
      *
      * @param originUser
-     * @return
+     * @return safetyUser
      */
     User getSafetyUser(User originUser);
 
     /**
      * 获取当前登录用户
      * @param currentUser
-     * @return
+     * @return safetyUser
      */
     User getCurrentUser(User currentUser);
 

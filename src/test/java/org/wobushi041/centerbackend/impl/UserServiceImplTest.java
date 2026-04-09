@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.wobushi041.centerbackend.exception.BusinessException;
 import org.wobushi041.centerbackend.mapper.UserMapper;
-import service.impl.UserServiceImpl;
+import org.wobushi041.centerbackend.service.impl.UserServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

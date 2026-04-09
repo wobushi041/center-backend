@@ -1,4 +1,4 @@
-package service.impl;
+package org.wobushi041.centerbackend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,7 +10,7 @@ import org.wobushi041.centerbackend.constant.UserConstant;
 import org.wobushi041.centerbackend.exception.BusinessException;
 import org.wobushi041.centerbackend.mapper.UserMapper;
 import org.wobushi041.centerbackend.model.enity.User;
-import service.UserService;
+import org.wobushi041.centerbackend.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

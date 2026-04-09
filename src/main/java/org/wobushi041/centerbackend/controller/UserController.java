@@ -11,14 +11,14 @@ import org.wobushi041.centerbackend.exception.BusinessException;
 import org.wobushi041.centerbackend.model.enity.User;
 import org.wobushi041.centerbackend.model.request.UserLoginRequest;
 import org.wobushi041.centerbackend.model.request.UserRegisterRequest;
-import service.UserService;
+import org.wobushi041.centerbackend.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.wobushi041.centerbackend.constant.UserConstant.ADMIN_ROLE;
-import static service.UserService.USER_LOGIN_STATE;
+import static org.wobushi041.centerbackend.service.UserService.USER_LOGIN_STATE;
 
 /**
  * 用户控制器

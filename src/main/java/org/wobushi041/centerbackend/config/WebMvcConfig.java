@@ -8,23 +8,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 跨域配置
- *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @Configuration
-public class WebMvcConfg implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        //设置允许跨域的路径
+        //覆盖所有请求
         registry.addMapping("/**")
-                //使用 allowedOriginPatterns 以支持任意调试端口 / 域名
-                .allowedOriginPatterns("*")
-                //是否允许证书 不再默认开启
+                //允许发送Cookie
                 .allowCredentials(true)
+                //允许放行的域名（必须是patterns，否则*会与allowCredentials冲突）
+                .allowedOriginPatterns("*")
                 //设置允许的方法
-                .allowedMethods("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 //跨域允许时间
                 .maxAge(3600);
     }

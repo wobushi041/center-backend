@@ -41,7 +41,7 @@ center-backend
 ### 4.1 克隆并进入项目
 
 ```powershell
-git clone <your-repo-url>
+git clone <https://github.com/wobushi041/center-backend.git>
 cd center-backend
 ```
 

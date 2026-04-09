@@ -1,4 +1,4 @@
-package org.wobushi041.centerbackend.model.domain.request;
+package org.wobushi041.centerbackend.model.request;
 
 import lombok.Data;
 

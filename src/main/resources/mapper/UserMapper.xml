@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.wobushi041.centerbackend.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="org.wobushi041.centerbackend.model.domain.User">
+    <resultMap id="BaseResultMap" type="org.wobushi041.centerbackend.model.enity.User">
             <id property="id" column="id" />
             <result property="username" column="username" />
             <result property="userAccount" column="userAccount" />
@@ -13,17 +13,16 @@
             <result property="userPassword" column="userPassword" />
             <result property="phone" column="phone" />
             <result property="email" column="email" />
-            <result property="planetCode" column="planetCode"/>
             <result property="userStatus" column="userStatus" />
             <result property="createTime" column="createTime" />
             <result property="updateTime" column="updateTime" />
             <result property="isDelete" column="isDelete" />
-            <result property="role" column="role" />
+            <result property="userRole" column="role" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,username,userAccount,avatarUrl,gender,userPassword,
-        phone,email,planetCode,role,userStatus,createTime,updateTime,
-        isDelete
+        phone,email,userStatus,createTime,updateTime,
+        isDelete,role
     </sql>
 </mapper>

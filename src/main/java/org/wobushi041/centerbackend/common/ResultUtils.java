@@ -2,12 +2,12 @@ package org.wobushi041.centerbackend.common;
 
 public class ResultUtils {
     public static <T> BaseResponse<T> success(T data) {
-        return new BaseResponse<T>(200, data, "success", "木有问题嘿嘿");
+        return new BaseResponse<>(200, data, "success", "木有问题嘿嘿");
     }
 
 //都不换
     public static <T> BaseResponse<T> error(ErrorCode errorCode) {
-        return new BaseResponse<T>(errorCode);
+        return new BaseResponse<>(errorCode);
     }
 //换1
     public static BaseResponse error(ErrorCode errorCode, String description) {

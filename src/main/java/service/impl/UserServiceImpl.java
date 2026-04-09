@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-import org.wobushi041.centerbackend.common.BaseResponse;
 import org.wobushi041.centerbackend.common.ErrorCode;
-import org.wobushi041.centerbackend.common.ResultUtils;
+import org.wobushi041.centerbackend.constant.UserConstant;
 import org.wobushi041.centerbackend.exception.BusinessException;
 import org.wobushi041.centerbackend.mapper.UserMapper;
-import org.wobushi041.centerbackend.model.domain.User;
+import org.wobushi041.centerbackend.model.enity.User;
 import service.UserService;
 
 import javax.annotation.Resource;
@@ -26,12 +25,11 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    public static final String SALT = "041";
- private static final String USER_LOGIN_STATE = "userLoginState";
+
+
     @Resource
     private UserMapper userMapper;
-
-/**
+    /**
  * 用户注册方法
  * @param userAccount 用户账号
  * @param userPassword 用户密码
@@ -54,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
     // 检查用户账号是否包含特殊字符
-        String validateRegExp = "\\pP|\\pS|\\s+";
+        String validateRegExp =  "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Matcher matcher = Pattern.compile(validateRegExp).matcher(userAccount);
         if (matcher.find()) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户账号不能包含特殊字符");
@@ -73,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
     // 对密码进行MD5加密并保存用户信息
-        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
+        String encryptPassword = DigestUtils.md5DigestAsHex((UserConstant.SALT + userPassword).getBytes());
         User user = new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
@@ -84,6 +82,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return user.getId();
     }
 
+
+    /**
+     * 用户登录方法
+     * @param userAccount
+     * @param userPassword
+     * @param request
+     * @return
+     */
     @Override
     public User userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
@@ -96,13 +102,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户密码不能小于8位");
         }
 
-        String validateRegExp = "\\pP|\\pS|\\s+";
+        String validateRegExp = "[`~!@#$%^&*()+=|{}':;',\\\\\\\\[\\\\\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]\"";
         Matcher matcher = Pattern.compile(validateRegExp).matcher(userAccount);
         if (matcher.find()) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户账号不能包含特殊字符");
         }
 
-        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
+        String encryptPassword = DigestUtils.md5DigestAsHex((UserConstant.SALT + userPassword).getBytes());
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userAccount", userAccount);
         queryWrapper.eq("userPassword", encryptPassword);
@@ -112,20 +118,63 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在或密码错误");
         }
-
-        User safetyUser = new User();
-        safetyUser.setId(user.getId());
-        safetyUser.setUsername(user.getUsername());
-        safetyUser.setUserAccount(user.getUserAccount());
-        safetyUser.setAvatarUrl(user.getAvatarUrl());
-        safetyUser.setGender(user.getGender());
-        safetyUser.setPhone(user.getPhone());
-        safetyUser.setEmail(user.getEmail());
-        safetyUser.setUserStatus(user.getUserStatus());
-        safetyUser.setCreateTime(user.getCreateTime());
-
+        User safetyUser = getSafetyUser(user);
         request.getSession().setAttribute(USER_LOGIN_STATE, safetyUser);
-
         return safetyUser;
     }
+
+
+    /**
+     * 获取当前用户信息
+     * @param currentUser
+     * @return
+     */
+    @Override
+    public User getCurrentUser(User currentUser) {
+        if (currentUser == null) {
+            throw new BusinessException(ErrorCode.NO_AUTHORITY);
+        }
+        long userId = currentUser.getId();
+        // TODO 校验用户是否合法
+        User user = this.getById(userId);
+        return this.getSafetyUser(user);
+    }
+
+
+    /**
+     * 用户登出方法
+     * @param request
+     * @return
+     */
+    @Override
+    public int userlogout(HttpServletRequest request) {
+        request.getSession().removeAttribute(USER_LOGIN_STATE);
+        return 1;
+    }
+
+
+    /**
+     * 用户脱敏返回需要的安全字段
+     * @param originUser
+     * @return
+     */
+    @Override
+    public User getSafetyUser(User originUser) {
+        User safetyUser = new User();
+        safetyUser.setId(originUser.getId());
+        safetyUser.setUsername(originUser.getUsername());
+        safetyUser.setUserAccount(originUser.getUserAccount());
+        safetyUser.setAvatarUrl(originUser.getAvatarUrl());
+        safetyUser.setGender(originUser.getGender());
+        safetyUser.setPhone(originUser.getPhone());
+        safetyUser.setEmail(originUser.getEmail());
+        safetyUser.setUserRole(originUser.getUserRole());
+        safetyUser.setUserStatus(originUser.getUserStatus());
+        safetyUser.setCreateTime(originUser.getCreateTime());
+        return safetyUser;
+    }
+
+
+
+
 }

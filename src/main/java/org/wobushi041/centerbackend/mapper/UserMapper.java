@@ -1,6 +1,6 @@
 package org.wobushi041.centerbackend.mapper;
 
-import org.wobushi041.centerbackend.model.domain.User;
+import org.wobushi041.centerbackend.model.enity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

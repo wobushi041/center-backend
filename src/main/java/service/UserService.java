@@ -1,7 +1,7 @@
 package service;
 
 
-import org.wobushi041.centerbackend.model.domain.User;
+import org.wobushi041.centerbackend.model.enity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserService extends IService<User> {
 
+    String USER_LOGIN_STATE = "userLoginState";
+
 
     /**
      * @param userAccount   用户账号
@@ -24,6 +26,39 @@ public interface UserService extends IService<User> {
     Long userRegister(String userAccount, String userPassword, String checkPassword);
 
 
+    /**
+     *
+     * @param userAccount
+     * @param userPassword
+     * @param request
+     * @return
+     */
     User userLogin(String userAccount, String userPassword, HttpServletRequest request);
+
+
+    /**
+     *
+     * @param request
+     * @return
+     */
+    int userlogout(HttpServletRequest request);
+
+
+    /**
+     *
+     * @param originUser
+     * @return
+     */
+    User getSafetyUser(User originUser);
+
+    /**
+     * 获取当前登录用户
+     * @param currentUser
+     * @return
+     */
+    User getCurrentUser(User currentUser);
+
+
+
 
 }

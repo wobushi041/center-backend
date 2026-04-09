@@ -1,7 +1,9 @@
-package org.wobushi041.centerbackend.model.domain;
+package org.wobushi041.centerbackend.model.enity;
 
-import com.baomidou.mybatisplus.annotation.*;
-
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import lombok.Data;
 
@@ -54,16 +56,6 @@ public class User {
     private String email;
 
     /**
-     * 星球编号
-     */
-    private String planetCode;
-
-    /**
-     * 角色0用户，1管理员
-     */
-    private Integer role;
-
-    /**
      * 状态 0-正常
      */
     private Integer userStatus;
@@ -80,8 +72,12 @@ public class User {
 
     /**
      * 是否删除
-     * @Tablelogic 标记实体类中的字段作为逻辑删除字段
      */
-    @TableLogic
     private Integer isDelete;
+
+
+    /**
+     * 0:用户，1:管理员
+     */
+    private Integer userRole;
 }

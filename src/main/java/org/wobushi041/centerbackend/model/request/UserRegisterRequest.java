@@ -1,4 +1,4 @@
-package org.wobushi041.centerbackend.model.domain.request;
+package org.wobushi041.centerbackend.model.request;
 
 import lombok.Data;
 
@@ -16,7 +16,6 @@ public class UserRegisterRequest implements Serializable {
     private String userAccount;
     private String userPassword;
     private String checkPassword;
-    private String planetCode;
 }
 // 如果不显式定义这个值会发生什么？
 // 如果你没有在类中显式声明 serialVersionUID，Java 的序列化运行时会根据类的内部细节（如类名、接口名、方法和属性等）自动通过哈希算法生成一个默认的 serialVersionUID。
